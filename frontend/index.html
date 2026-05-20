@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recommendation System</title>
+    <style>
+        body { font-family: Arial; max-width: 500px; margin: 100px auto; text-align: center; }
+        input { padding: 10px; width: 70%; font-size: 16px; }
+        button { padding: 10px 20px; font-size: 16px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+        #result { margin-top: 30px; font-size: 24px; color: #333; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Recommendation System</h1>
+    <input type="text" id="userInput" placeholder="Enter a keyword (e.g. hot, cold...)">
+    <button onclick="getRecommendation()">Get Recommendation</button>
+    <div id="result"></div>
+
+    <script>
+        async function getRecommendation() {
+            const input = document.getElementById('userInput').value;
+            const response = await fetch('/recommend', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ input: input })
+            });
+            const data = await response.json();
+            document.getElementById('result').innerHTML = 
+                '✅ Recommendation: <strong>' + data.recommendation + '</strong>';
+        }
+    </script>
+</body>
+</html>
